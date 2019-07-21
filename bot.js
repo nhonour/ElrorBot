@@ -30,8 +30,13 @@ client.on('ready', () => {
 // Create an event listener for messages
 client.on('message', msg => {
 
-  
-  
+
+  // Displays current commands
+  if(msg.content.startsWith("!help"))
+    msg.channel.send('Current commands are:\n !lore\n !addlore (Adds on to the end of lore file)\n !overwritelore (Overwrites the lore file)\n !listlore\n !deletelore');
+
+
+  // Adds on to or creates notes for lore
   if (msg.content.startsWith("!addlore"))
   {
     var words = msg.content.split(" ");
@@ -44,9 +49,7 @@ client.on('message', msg => {
       fs.writeFile('loreFile.txt', JSON.stringify(loreArray), (err) => {
         if (err) throw err;
       });
-    } //----------
-
-    
+    } 
 
     else
     {
@@ -64,11 +67,9 @@ client.on('message', msg => {
       } 
     } //----------
 
-    /*-------------------------------------
-              Save to File here
-    --------------------------------------*/
   }
 
+  // Creates or completely overwrites lore in lore
   if (msg.content.startsWith("!overwritelore"))
   {
     var words = msg.content.split(" ");
@@ -91,18 +92,12 @@ client.on('message', msg => {
         fs.writeFile('loreFile.txt', JSON.stringify(loreArray), (err) => {
           if (err) throw err;
         }); 
-      } 
-
-      
-      }
+      }       
     }
+  }
   
 
-
-
-
-
-
+  // Displays the lore in the given location
   if (msg.content.startsWith("!lore"))
   {
     var words = msg.content.split(" ");
@@ -116,6 +111,7 @@ client.on('message', msg => {
   }
 
 
+  // Deletes the lore entry
   if (msg.content.startsWith("!deletelore"))
   {
     var words = msg.content.split(" ");
@@ -135,11 +131,27 @@ client.on('message', msg => {
     
   }
 
+  //Dislplay all of the lore entries
+  if (msg.content.startsWith('!listlore'))
+  {
+    const lists = Object.keys(loreArray);
+    for (const list of lists)
+    {
+      msg.channel.send(list);
+    }
+  }
+
+
+
+
   // If the message is "ping"
   if (msg.content === '!ping') {
     // Send "pong" to the same channel
     msg.channel.send('pong');
   }
+
+
+  // --------------------------------- You have entered the 「ｍｅｍｅ　ｚｏｎｅ」 ----------------------------------
 
   if(msg.content === '!keenmind')
   {
