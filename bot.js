@@ -191,7 +191,6 @@ client.on('message', msg => {
     }
   }
   
-
   // Correct people about the correct name for a pencil 
   if(msg.content.includes("pencil"))
     msg.channel.send(`paint sword*`);
