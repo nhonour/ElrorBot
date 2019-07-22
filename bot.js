@@ -181,10 +181,10 @@ client.on('message', msg => {
     if(msg.author.id === ('140280291582279681'))
     {
       
-      const yeeted = msg.mentions.users.first();
-      if(yeeted)
+      const yeetee = msg.mentions.users.first();
+      if(yeetee)
       {
-        const member = msg.guild.member(yeeted);
+        const member = msg.guild.member(yeetee);
         if(member)
           member.setVoiceChannel(null);
       }    
