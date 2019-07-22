@@ -11,11 +11,18 @@ const client = new Discord.Client();
 
 //Lore testing
 var loreArray = {};
+var charStats = {};
 
 fs.readFile('loreFile.txt', function(err, data) {
   if (data != null);
   loreArray = JSON.parse(data);
 })
+
+fs.readFile('loreFile.txt', function(err, data) {
+  if (data != null);
+  loreArray = JSON.parse(data);
+})
+
 
 /**
  * The ready event is vital, it means that only _after_ this will your bot start reacting to information
@@ -32,8 +39,8 @@ client.on('message', msg => {
 
 
   // Displays current commands
-  if(msg.content.startsWith("!help"))
-    msg.channel.send('Current commands are:\n !lore\n !addlore (Adds on to the end of lore file)\n !overwritelore (Overwrites the lore file)\n !listlore\n !deletelore');
+  if(msg.content.startsWith("!help") || msg.content.startsWith("!commands"))
+    msg.channel.send('Current commands are:\n !lore\n !addlore (Adds on to the end of lore file)\n !overwritelore (Overwrites the lore file)\n !listlore\n !deletelore\n !urpriest');
 
 
   // Adds on to or creates notes for lore
@@ -53,11 +60,11 @@ client.on('message', msg => {
 
     else
     {
-      if (words.length <= 2)
+      if (words.length <= 2) 
       {
         msg.channel.send('You fuckwad, put some lore in there');
       }
-      else
+      else // Create new lore entry
       {
         loreArray[words[1]] = loreOnly;
         msg.channel.send('Added lore!');
@@ -65,7 +72,7 @@ client.on('message', msg => {
           if (err) throw err;
         }); 
       } 
-    } //----------
+    } 
 
   }
 
@@ -153,6 +160,7 @@ client.on('message', msg => {
 
   // --------------------------------- You have entered the 「ｍｅｍｅ　ｚｏｎｅ」 ----------------------------------
 
+  // Keen mind is a good feat
   if(msg.content === '!keenmind')
   {
     var rand = Math.floor((Math.random()*3)+1)
@@ -165,6 +173,40 @@ client.on('message', msg => {
       if(rand === 3)
         msg.channel.send(`What's happened in the last month???`);
   }
+
+  // Allow only myself to yeet people out of voice chat
+  if(msg.content.startsWith('!yeet'))
+  {
+    
+    if(msg.author.id === ('140280291582279681'))
+    {
+      
+      const yeeted = msg.mentions.users.first();
+      if(yeeted)
+      {
+        const member = msg.guild.member(yeeted);
+        if(member)
+          member.setVoiceChannel(null);
+      }    
+    }
+  }
+  
+
+  // Correct people about the correct name for a pencil 
+  if(msg.content.includes("pencil"))
+    msg.channel.send(`paint sword*`);
+
+
+  // If people want to know more about the urpreists... or the communist manifesto
+  if(msg.content.startsWith('!urpriest'))
+  {
+    var rand = Math.floor((Math.random()*2)+1);
+    if(rand == 1)
+      msg.channel.send(`For more info on the Ur-Priests: https://tinyurl.com/m6gme24`);
+    if(rand == 2)
+      msg.channel.send(`For more info on the Ur-Priests: https://tinyurl.com/y3xq3lr9`);
+  }
+  
 
 });
 
