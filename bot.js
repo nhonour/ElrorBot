@@ -13,10 +13,9 @@ var loreArray = {};
 
 
 fs.readFile('loreFile.txt', function(err, data) {
-  if (data != null);
+  if (data !== null)
   loreArray = JSON.parse(data);
 })
-
 
 
 

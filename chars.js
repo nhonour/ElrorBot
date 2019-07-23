@@ -5,11 +5,12 @@ const fs = require('fs');
 
 var character_dict = {};
 
+// This guy right here is a bastard
 /*fs.readFile('charinfo.txt', function(err, data) {
-    if (data != null);
+    if (data !== null)
     character_dict = JSON.parse(data);
-  });
-*/
+  });*/
+
 
 
 
