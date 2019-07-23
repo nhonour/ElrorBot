@@ -1,16 +1,14 @@
-/**
- * A ping pong bot, whenever you send "ping", it replies "pong".
- */
 
 // Import the discord.js module
 const Discord = require('discord.js');
-var fs = require('fs');
-
-// Create an instance of a Discord client
+const chars = require('./chars');
+const fs = require('fs');
 const client = new Discord.Client();
 
 //Lore testing
 var loreArray = {};
+
+
 
 fs.readFile('loreFile.txt', function(err, data) {
   if (data != null);
@@ -23,10 +21,6 @@ fs.readFile('charinfo.txt', function(err, data) {
 })
 
 
-/**
- * The ready event is vital, it means that only _after_ this will your bot start reacting to information
- * received from Discord
- */
 client.on('ready', () => {
   console.log('I am ready!');
 });
@@ -35,6 +29,9 @@ client.on('ready', () => {
 
 // Create an event listener for messages
 client.on('message', msg => {
+
+
+  //-------------------------------------------------------------------------------------- Commands (Lore) ---------------------------------------------------------------------------------------
 
 
   // Displays current commands
@@ -145,6 +142,17 @@ client.on('message', msg => {
     {
       msg.channel.send(list);
     }
+  }
+
+
+  // --------------------------------------------------------------------------------------------------- Character Info -----------------------------------------------------------------------------------
+  if(msg.content.startsWith === (('!setheight') || ('!setlikes') || ('!setdislikes') || ('!setdescription') || ('!height') || ('!likes') || ('!dislikes') || ('!bio'))) {
+    var words = msg.content.split(" ");
+    var cmd = words[0];
+    var char = words[1];
+    var para = words[2];
+    
+    characterInfo(cmd, char, para);
   }
 
 
