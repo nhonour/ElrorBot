@@ -1,8 +1,4 @@
-/**
- * A ping pong bot, whenever you send "ping", it replies "pong".
- */
 
-// Import the discord.js module
 const Discord = require('discord.js');
 var fs = require('fs');
 
@@ -17,12 +13,6 @@ fs.readFile('loreFile.txt', function(err, data) {
   if (data != null);
   loreArray = JSON.parse(data);
 })
-
-fs.readFile('loreFile.txt', function(err, data) {
-  if (data != null);
-  loreArray = JSON.parse(data);
-})
-
 
 /**
  * The ready event is vital, it means that only _after_ this will your bot start reacting to information
