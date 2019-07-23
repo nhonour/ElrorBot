@@ -11,14 +11,13 @@ const client = new Discord.Client();
 
 //Lore testing
 var loreArray = {};
-var charStats = {};
 
 fs.readFile('loreFile.txt', function(err, data) {
   if (data != null);
   loreArray = JSON.parse(data);
 })
 
-fs.readFile('loreFile.txt', function(err, data) {
+fs.readFile('charinfo.txt', function(err, data) {
   if (data != null);
   loreArray = JSON.parse(data);
 })
@@ -148,14 +147,6 @@ client.on('message', msg => {
     }
   }
 
-
-
-
-  // If the message is "ping"
-  if (msg.content === '!ping') {
-    // Send "pong" to the same channel
-    msg.channel.send('pong');
-  }
 
 
   // --------------------------------- You have entered the 「ｍｅｍｅ　ｚｏｎｅ」 ----------------------------------
