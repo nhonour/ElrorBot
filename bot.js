@@ -5,6 +5,8 @@ const chars = require('./chars');
 const fs = require('fs');
 const client = new Discord.Client();
 
+const charInfo_commands = ['!setheight', '!setlikes', '!setdislikes', '!setdescription', '!height', '!likes', '!dislikes', '!bio', '!newchar'];
+
 //Lore testing
 var loreArray = {};
 
@@ -15,10 +17,19 @@ fs.readFile('loreFile.txt', function(err, data) {
   loreArray = JSON.parse(data);
 })
 
-fs.readFile('charinfo.txt', function(err, data) {
+/*fs.readFile('charinfo.txt', function(err, data) {
   if (data != null);
   loreArray = JSON.parse(data);
-})
+})*/
+
+
+function startsWithAnyOf(str, beginnings) { 
+  // returns true if str starts with any string in array beginnings
+  for (var b of beginnings) {
+    if (str.startsWith(b)) return true;
+  }
+  return false;
+}
 
 
 client.on('ready', () => {
@@ -145,14 +156,20 @@ client.on('message', msg => {
   }
 
 
+  
   // --------------------------------------------------------------------------------------------------- Character Info -----------------------------------------------------------------------------------
-  if(msg.content.startsWith === (('!setheight') || ('!setlikes') || ('!setdislikes') || ('!setdescription') || ('!height') || ('!likes') || ('!dislikes') || ('!bio'))) {
+  if(startsWithAnyOf(msg.content, charInfo_commands)) {
     var words = msg.content.split(" ");
     var cmd = words[0];
     var char = words[1];
     var para = words[2];
-    
-    characterInfo(cmd, char, para);
+    /*console.log(cmd);
+    console.log(char);
+    console.log(para);*/
+    if (cmd == '!newchar')
+      chars.newChar(char, msg.channel);
+    else
+      chars.characterInfo(cmd, char, para);
   }
 
 
