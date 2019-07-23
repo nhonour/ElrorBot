@@ -70,10 +70,15 @@ client.on('message', msg => {
   if (msg.content.startsWith("!overwritelore"))
   {
     var words = msg.content.split(" ");
+    var loreOnly = msg.content.substring(words[0].length + words[1].length + 2);
 
     if(words[1] in loreArray)
     {
       loreArray[words[1]] = loreOnly;
+      msg.channel.send('Lore rewritten');
+      fs.writeFile('loreFile.txt', JSON.stringify(loreArray), (err) => {
+        if (err) throw err;
+      }); 
     }
 
     else
