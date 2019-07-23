@@ -91,6 +91,9 @@ client.on('message', msg => {
     if(words[1] in loreArray)
     {
       loreArray[words[1]] = loreOnly;
+      fs.writeFile('loreFile.txt', JSON.stringify(loreArray), (err) => {
+        if (err) throw err;
+      });
     }
 
     else
@@ -169,7 +172,7 @@ client.on('message', msg => {
     if (cmd === '!newchar')
       chars.newChar(char, msg.channel);
     else
-      chars.characterInfo(cmd, char, para);
+      chars.characterInfo(cmd, char, para, msg.channel);
   }
 
 

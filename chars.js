@@ -6,11 +6,11 @@ var character_dict = {};
 
 class Character {
     constructor(description, likes, dislikes, height, bio) {
-      this.description = description;
-      this.likes = likes;
-      this.dislikes = dislikes;
-      this.height = height;
-      this.bio = bio;
+      this.c_description = description;
+      this.c_likes = likes;
+      this.c_dislikes = dislikes;
+      this.c_height = height;
+      this.c_bio = bio;
     }
     
     setDescription(cmd) {
@@ -30,7 +30,7 @@ class Character {
     }
 
     bio() {
-        console.log(this.bio)
+        console.log(this.c_bio)
     }
 
     deleteChar() {
@@ -44,12 +44,12 @@ class Character {
     
 }
 
-function characterInfo(cmd, char, para) {
+function characterInfo(cmd, char, para, channel) {
 
     if(cmd == ('!bio'))
         character_dict[char].bio();
     if(cmd == ('!setDescription'))
-        character_dict[char].bio(para);
+        character_dict[char].setDescription(para);
 }
 
 function newChar(char, channel) {
