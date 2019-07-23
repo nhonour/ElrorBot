@@ -5,7 +5,7 @@ const chars = require('./chars');
 const fs = require('fs');
 const client = new Discord.Client();
 
-const charInfo_commands = ['!setheight', '!setlikes', '!setdislikes', '!setdescription', '!height', '!likes', '!dislikes', '!bio', '!newchar'];
+const charInfo_commands = ['!setheight', '!setlikes', '!setdislikes', '!setdescription', '!height', '!likes', '!dislikes', '!bio', '!newchar', '!likes', '!deletechar'];
 
 //Lore testing
 var loreArray = {};
@@ -17,10 +17,7 @@ fs.readFile('loreFile.txt', function(err, data) {
   loreArray = JSON.parse(data);
 })
 
-/*fs.readFile('charinfo.txt', function(err, data) {
-  if (data != null);
-  loreArray = JSON.parse(data);
-})*/
+
 
 
 function startsWithAnyOf(str, beginnings) { 
@@ -165,7 +162,7 @@ client.on('message', msg => {
     var words = msg.content.split(" ");
     var cmd = words[0];
     var char = words[1];
-    var para = words[2];
+    var para = msg.content.substring(words[0].length + words[1].length + 2);
     /*console.log(cmd);
     console.log(char);
     console.log(para);*/
