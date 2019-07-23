@@ -166,7 +166,7 @@ client.on('message', msg => {
     /*console.log(cmd);
     console.log(char);
     console.log(para);*/
-    if (cmd == '!newchar')
+    if (cmd === '!newchar')
       chars.newChar(char, msg.channel);
     else
       chars.characterInfo(cmd, char, para);
