@@ -6,10 +6,16 @@ const fs = require('fs');
 var character_dict = {};
 
 // This guy right here is a bastard
-/*fs.readFile('charinfo.txt', function(err, data) {
-    if (data !== null)
-    character_dict = JSON.parse(data);
-  });*/
+fs.readFile('charinfo.txt', function(err, data) {
+    if (data !== null) {
+        character_dict = JSON.parse(data);
+        for (var x in character_dict) {
+            c = new Character("","","","","");
+            Object.assign(c, character_dict[x]);
+            character_dict[x] = c;
+        }
+    }
+});
 
 
 class Character {

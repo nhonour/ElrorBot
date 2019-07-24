@@ -16,10 +16,6 @@ fs.readFile('loreFile.txt', function(err, data) {
   loreArray = JSON.parse(data);
 })
 
-fs.readFile('charinfo.txt', function(err, data) {
-  if (data !== null)
-  character_dict = JSON.parse(data);
-});
 
 
 function startsWithAnyOf(str, beginnings) { 
