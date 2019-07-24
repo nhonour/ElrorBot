@@ -41,7 +41,7 @@ client.on('message', msg => {
 
   // Displays current commands
   if(msg.content.startsWith("!help") || msg.content.startsWith("!commands"))
-    msg.channel.send('Current commands are:\n !lore\n !addlore (Adds on to the end of lore file)\n !overwritelore (Overwrites the lore file)\n !listlore\n !deletelore\n !urpriest');
+    msg.channel.send('```Current commands are:\n !lore !addlore !overwritelore !listlore !deletelore\n !newchar !setheight !setlikes !setdislikes !setdescription !deletechar\n !height !likes !dislikes !description !bio\n !urpriest !keenmind !ohbaby !beepboop```');
 
 
   // Adds on to or creates notes for lore
@@ -223,6 +223,34 @@ client.on('message', msg => {
       msg.channel.send(`For more info on the Ur-Priests: https://tinyurl.com/y3xq3lr9`);
   }
   
+  // Bingrid links
+  if(msg.content === '!ohbaby')
+  {
+    msg.channel.send({embed: {
+      color: 3447003,
+      title: "Bingrid Thunderbone Music",
+      fields: [{
+        name: "The Mighty Thunderbones",
+        value: "[soundcloud](https://soundcloud.com/callum-seuss/the-mighty-thunderbones)"
+      },
+      {
+        name: "Digginoth the Vile",
+        value: "[soundcloud](https://soundcloud.com/callum-seuss/drigginoth-the-vile)"
+      }
+    ]}});
+  }
+
+  // Zach bullshit
+  if(msg.content === '!beepboop')
+  {
+    msg.channel.send({embed: {
+      color: 3447003,
+      fields: [{
+        name:"Guts' Poems",
+        value: "[google doc](https://docs.google.com/document/d/1Ns1X1af_sjNZ1PCKVq4QsRnSnK8YImz7zaSB681DKig/edit)"
+      }]
+    }});
+  }
 
 });
 
