@@ -12,8 +12,6 @@ var character_dict = {};
   });*/
 
 
-
-
 class Character {
     constructor(description, likes, dislikes, height, bio) {
       this.c_description = description;

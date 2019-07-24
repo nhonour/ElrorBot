@@ -5,11 +5,10 @@ const chars = require('./chars');
 const fs = require('fs');
 const client = new Discord.Client();
 
-const charInfo_commands = ['!setheight', '!setlikes', '!setdislikes', '!setdescription', '!height', '!likes', '!dislikes', '!bio', '!newchar', '!likes', '!deletechar'];
+const charInfo_commands = ['!setheight', '!setlikes', '!setdislikes', '!setdescription', '!height', '!likes', '!dislikes', '!bio', '!newchar', '!likes', '!deletechar', '!description'];
 
 //Lore testing
 var loreArray = {};
-
 
 
 fs.readFile('loreFile.txt', function(err, data) {
@@ -17,6 +16,10 @@ fs.readFile('loreFile.txt', function(err, data) {
   loreArray = JSON.parse(data);
 })
 
+fs.readFile('charinfo.txt', function(err, data) {
+  if (data !== null)
+  character_dict = JSON.parse(data);
+});
 
 
 function startsWithAnyOf(str, beginnings) { 
@@ -31,7 +34,6 @@ function startsWithAnyOf(str, beginnings) {
 client.on('ready', () => {
   console.log('I am ready!');
 });
-
 
 
 // Create an event listener for messages
@@ -82,11 +84,14 @@ client.on('message', msg => {
   // Creates or completely overwrites lore in lore
   if (msg.content.startsWith("!overwritelore"))
   {
+    
     var words = msg.content.split(" ");
+    var loreOnly = msg.content.substring(words[0].length + words[1].length + 2);
 
     if(words[1] in loreArray)
     {
       loreArray[words[1]] = loreOnly;
+      msg.channel.send('Lore rewritten');
       fs.writeFile('loreFile.txt', JSON.stringify(loreArray), (err) => {
         if (err) throw err;
       });
@@ -148,10 +153,13 @@ client.on('message', msg => {
   if (msg.content.startsWith('!listlore'))
   {
     const lists = Object.keys(loreArray);
+
+    var allLore = "";
     for (const list of lists)
-    {
-      msg.channel.send(list);
+    { 
+      allLore += `${list}\n`;
     }
+    msg.channel.send(allLore);
   }
 
 
@@ -162,9 +170,7 @@ client.on('message', msg => {
     var cmd = words[0];
     var char = words[1];
     var para = msg.content.substring(words[0].length + words[1].length + 2);
-    /*console.log(cmd);
-    console.log(char);
-    console.log(para);*/
+
     if (cmd === '!newchar')
       chars.newChar(char, msg.channel);
     else
