@@ -5,10 +5,12 @@ const chars = require('./chars');
 const fs = require('fs');
 const client = new Discord.Client();
 
-const charInfo_commands = ['!setheight', '!setlikes', '!setdislikes', '!setdescription', '!height', '!likes', '!dislikes', '!bio', '!newchar', '!likes', '!deletechar', '!description'];
+const charInfo_commands = ['!setheight', '!setlikes', '!setdislikes', '!setdescription', '!height', '!likes', '!dislikes', '!bio', '!newchar', '!likes', '!deletechar', '!description\n !thisissosad'];
 
 //Lore testing
 var loreArray = {};
+var despacitos = 1;
+
 
 
 fs.readFile('loreFile.txt', function(err, data) {
@@ -41,7 +43,7 @@ client.on('message', msg => {
 
   // Displays current commands
   if(msg.content.startsWith("!help") || msg.content.startsWith("!commands"))
-    msg.channel.send('```Current commands are:\n !lore !addlore !overwritelore !listlore !deletelore\n !newchar !setheight !setlikes !setdislikes !setdescription !deletechar\n !height !likes !dislikes !description !bio\n !urpriest !keenmind !ohbaby !beepboop```');
+    msg.channel.send('```Current commands are:\n !lore !addlore !overwritelore !listlore !deletelore\n !newchar !setheight !setlikes !setdislikes !setdescription !deletechar\n !height !likes !dislikes !description !bio\n !urpriest !keenmind !ohbaby !beepboop !meow !thisissosad\n And a few more secret ones!```');
 
 
   // Adds on to or creates notes for lore
@@ -206,6 +208,17 @@ client.on('message', msg => {
           member.setVoiceChannel(null);
       }    
     }
+
+    else {
+      const infidel = msg.author;
+      if(infidel) {
+        const member = msg.guild.member(infidel);
+        if(member) 
+          member.setVoiceChannel(null);
+      }
+      msg.channel.send('You are not worthy');
+    }
+    
   }
   
   // Correct people about the correct name for a pencil 
@@ -250,6 +263,45 @@ client.on('message', msg => {
         value: "[google doc](https://docs.google.com/document/d/1Ns1X1af_sjNZ1PCKVq4QsRnSnK8YImz7zaSB681DKig/edit)"
       }]
     }});
+  }
+
+  // Suicidal cat scribbles
+  if(msg.content === '!meow')
+  {
+    msg.channel.send({embed: {
+      color: 3447003,
+      fields: [{
+        name:"Chonky cat",
+        value: "[google doc](https://docs.google.com/document/d/1AK3ANpOfyZfOWzF_HiGtnSbNj65Ld6-TxDNfyxrJrI8/edit?usp=sharing)"
+      }]
+    }});
+  }
+
+  // Song roulette
+  if(msg.content === '!thisissosad')
+  {
+    var memeSong = Math.floor((Math.random()*10)+1);
+
+    if( (despacitos === 2) || ((despacitos > 3) && (memeSong === 8))) {
+      msg.channel.send(';;play https://www.youtube.com/watch?v=OBwS66EBUcY');
+    }
+
+    if((despacitos === 3) || ((despacitos > 3) && (memeSong === 3))) {
+      msg.channel.send(';;play https://www.youtube.com/watch?v=XUhVCoTsBaM');
+      
+    }
+    
+    else {
+      msg.channel.send(';;play https://www.youtube.com/watch?v=kJQP7kiw5Fk');
+    }
+
+    despacitos++;
+  }
+
+  // They're all good bots bront
+  if(msg.content.includes("good bot"))
+  {
+    msg.channel.send("\\(^ヮ^)/");
   }
 
 });
