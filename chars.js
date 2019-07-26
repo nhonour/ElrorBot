@@ -10,7 +10,7 @@ fs.readFile('charinfo.txt', function(err, data) {
     if (data !== null) {
         character_dict = JSON.parse(data);
         for (var x in character_dict) {
-            c = new Character("","","","","");
+            c = new Character("","","","",true);
             Object.assign(c, character_dict[x]);
             character_dict[x] = c;
         }
@@ -19,12 +19,12 @@ fs.readFile('charinfo.txt', function(err, data) {
 
 
 class Character {
-    constructor(description, likes, dislikes, height, bio) {
+    constructor(description, likes, dislikes, height, alive) {
       this.c_description = description;
       this.c_likes = likes;
       this.c_dislikes = dislikes;
       this.c_height = height;
-      this.c_bio = bio;
+      this.c_alive = alive;
     }
     
     setDescription(char, para, channel) {
@@ -93,6 +93,21 @@ class Character {
         writeChar(char);
     }
 
+    ripChar(char, channel) {
+        if(this.c_alive) 
+            ripCharacter(char, channel)
+        else
+            channel.send(`Now you're just rubbing it in`);
+        writeChar(char);
+    }
+
+    unRipChar(char, channel) {
+        if(!this.alive)
+            unRipCharacter(char, channel);
+        else
+            channel.send(`Dude, they're standing right there`);
+        writeChar(char);
+    }   
     
 }
 
@@ -110,15 +125,19 @@ function characterInfo(cmd, char, para, channel) {
         if(cmd === ('!setlikes'))
             character_dict[char].setLikes(char, para, channel);
         if(cmd === ('!dislikes'))
-          character_dict[char].dislikes(channel);
+            character_dict[char].dislikes(channel);
         if(cmd === '!setdislikes')
-           character_dict[char].setDislikes(char, para, channel);
+            character_dict[char].setDislikes(char, para, channel);
         if(cmd === '!height')
-          character_dict[char].height(channel);
+            character_dict[char].height(channel);
         if(cmd === '!setheight')
-          character_dict[char].setHeight(char, para, channel);
+            character_dict[char].setHeight(char, para, channel);
         if(cmd === '!deletechar')
-          character_dict[char].deleteChar(char, channel);
+            character_dict[char].deleteChar(char, channel);
+        if(cmd === '!rip')
+            character_dict[char].ripChar(char, channel);
+        if(cmd === '!unrip')
+            character_dict[char].unRipChar(char, channel);
     }
     else
         channel.send(`This character does not exist, please make a file with !newchar (character name)`);
@@ -136,6 +155,25 @@ function writeChar(char)
         if (err) throw err;
     });
 }
+
+function ripCharacter(char, channel) {
+    var rand = Math.floor((Math.random()*2)+1);
+    if(rand === 1)
+        channel.send(`Rip ${char}, you loveable but compete and utter dumbass`);
+    if(rand === 2)
+        channel.send(`Rip ${char}, they wasn't the strongest, fastest, or smartest, but my god you should have seen the size of his int`);
+    this.c_alive = false;
+}
+
+function unRipCharacter(char, channel) {
+    var rand = Math.floor((Math.random()*2)+1);
+    if(rand === 1)
+        channel.send(`Unfortunately, ${char} has rejoined us`);
+    if(rand === 2)
+        channel.send(`nvm`);
+    this.c_alive = true;
+}
+
 
 
 

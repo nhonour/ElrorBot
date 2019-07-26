@@ -5,7 +5,7 @@ const chars = require('./chars');
 const fs = require('fs');
 const client = new Discord.Client();
 
-const charInfo_commands = ['!setheight', '!setlikes', '!setdislikes', '!setdescription', '!height', '!likes', '!dislikes', '!bio', '!newchar', '!likes', '!deletechar', '!description\n !thisissosad'];
+const charInfo_commands = ['!setheight', '!setlikes', '!setdislikes', '!setdescription', '!height', '!likes', '!dislikes', '!bio', '!newchar', '!likes', '!deletechar', '!description', '!rip', '!unrip'];
 
 //Lore testing
 var loreArray = {};
@@ -43,7 +43,7 @@ client.on('message', msg => {
 
   // Displays current commands
   if(msg.content.startsWith("!help") || msg.content.startsWith("!commands"))
-    msg.channel.send('```Current commands are:\n !lore !addlore !overwritelore !listlore !deletelore\n !newchar !setheight !setlikes !setdislikes !setdescription !deletechar\n !height !likes !dislikes !description !bio\n !urpriest !keenmind !ohbaby !beepboop !meow !thisissosad\n And a few more secret ones!```');
+    msg.channel.send('```Current commands are:\n !lore !addlore !overwritelore !listlore !deletelore\n !newchar !setheight !setlikes !setdislikes !setdescription !deletechar\n !height !likes !dislikes !description !bio !rip !unrip\n !urpriest !keenmind !ohbaby !beepboop !meow !thisissosad\n And a few more secret ones!```');
 
 
   // Adds on to or creates notes for lore
@@ -177,7 +177,7 @@ client.on('message', msg => {
 
 
 
-  // --------------------------------- You have entered the 「ｍｅｍｅ　ｚｏｎｅ」 ----------------------------------
+  // ---------------------------------------------------------------------------------------- You have entered the 「ｍｅｍｅ　ｚｏｎｅ」 ----------------------------------------------------------------------
 
   // Keen mind is a good feat
   if(msg.content === '!keenmind')
