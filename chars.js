@@ -179,12 +179,10 @@ function unRipCharacter(char, channel) {
 
 function cowards (channel) {
     var aliveCharacters = "";
-    console.log(`command recieved`);
     for (const key in character_dict)
     {
         if(character_dict[key].c_alive) {
             aliveCharacters += `${key}\n`;
-            console.log(`${character_dict[key]} is alive`);
         }
     }
     if (aliveCharacters !== "") { 
@@ -193,7 +191,16 @@ function cowards (channel) {
 }
 
 function valhalla(channel) {
-
+    var deadCharacters = "";
+    for (const key in character_dict)
+    {
+        if(!character_dict[key].c_alive) {
+            deadCharacters += `${key}\n`;
+        }
+    }
+    if (deadCharacters !== "") { 
+        channel.send(deadCharacters);
+    }
 }
 
 

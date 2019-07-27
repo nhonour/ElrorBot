@@ -43,7 +43,7 @@ client.on('message', msg => {
 
   // Displays current commands
   if(msg.content.startsWith("!help") || msg.content.startsWith("!commands"))
-    msg.channel.send('```Current commands are:\n !lore !addlore !overwritelore !listlore !deletelore\n !newchar !setheight !setlikes !setdislikes !setdescription !deletechar\n !height !likes !dislikes !description !bio !rip !unrip\n !urpriest !keenmind !ohbaby !beepboop !meow !thisissosad\n And a few more secret ones!```');
+    msg.channel.send('```Current commands are:\n !lore !addlore !overwritelore !listlore !deletelore\n !newchar !setheight !setlikes !setdislikes !setdescription !deletechar\n !height !likes !dislikes !description !bio !rip !unrip\n !urpriest !keenmind !ohbaby !beepboop !meow !thisissosad\n !cowards !valhalla\n And a few more secret ones!```');
 
 
   // Adds on to or creates notes for lore
