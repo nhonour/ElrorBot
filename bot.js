@@ -312,7 +312,7 @@ client.on('message', msg => {
   // They're all good bots bront
   if(msg.content.includes("good bot"))
   {
-    msg.channel.send("\\(^ヮ^)/");
+    msg.channel.send("\\\\(^ヮ^)/");
   }
 
 });

@@ -10,7 +10,7 @@ fs.readFile('charinfo.txt', function(err, data) {
     if (data !== null) {
         character_dict = JSON.parse(data);
         for (var x in character_dict) {
-            c = new Character("","","","","");
+            c = new Character();
             Object.assign(c, character_dict[x]);
             character_dict[x] = c;
         }
@@ -19,18 +19,18 @@ fs.readFile('charinfo.txt', function(err, data) {
 
 
 class Character {
-    constructor(description, likes, dislikes, height, alive) {
-      this.c_description = description;
-      this.c_likes = likes;
-      this.c_dislikes = dislikes;
-      this.c_height = height;
-      this.c_alive = alive;
+    constructor() {
+      this.c_description = "";
+      this.c_likes = "";
+      this.c_dislikes = "";
+      this.c_height = "";
+      this.c_alive = true;
     }
     
     setDescription(char, para, channel) {
         this.c_description = para;
         channel.send('Description updated');
-        writeChar(char);
+        writeChar();
     }
 
     description(channel) {
@@ -43,7 +43,7 @@ class Character {
     setLikes(char, para, channel) {
         this.c_likes = para;
         channel.send('Likes updated');
-        writeChar(char);
+        writeChar();
     }
 
     likes(channel) {
@@ -57,7 +57,7 @@ class Character {
     setDislikes(char, para, channel) {
         this.c_dislikes = para;
         channel.send('Dislikes updated');
-        writeChar(char);
+        writeChar();
     }
 
     dislikes(channel) {
@@ -70,7 +70,7 @@ class Character {
     setHeight(char, para, channel) {
         this.c_height = para;
         channel.send('Height updated');        
-        writeChar(char);
+        writeChar();
     }
 
     height(channel) {
@@ -90,7 +90,7 @@ class Character {
     deleteChar(char, channel) {
         delete character_dict[char];
         channel.send('Character Deleted');
-        writeChar(char);
+        writeChar();
     }
 
     ripChar(char, channel) {
@@ -100,17 +100,17 @@ class Character {
         }
         else
             channel.send(`Now you're just rubbing it in`);
-        writeChar(char);
+        writeChar();
     }
 
     unRipChar(char, channel) {
-        if(this.c_alive === false) {
+        if(!this.c_alive) {
             unRipCharacter(char, channel);
             this.c_alive = true;
         }
         else
             channel.send(`Dude, they're standing right there`);
-        writeChar(char);
+        writeChar();
     }   
 }
 
@@ -149,10 +149,10 @@ function characterInfo(cmd, char, para, channel) {
 function newChar(char, channel) {
     character_dict[char] = new Character("", "", "", "", true);
     channel.send('New character created');
-    writeChar(char);
+    writeChar();
 }
 
-function writeChar(char)
+function writeChar()
 {
     fs.writeFile('charinfo.txt', JSON.stringify(character_dict), (err) => {
         if (err) throw err;
@@ -178,17 +178,18 @@ function unRipCharacter(char, channel) {
 }
 
 function cowards (channel) {
-    const lists = Object.keys(character_dict);
-    const aliveCharacters = [];
+    var aliveCharacters = "";
     console.log(`command recieved`);
-    for (const list of lists)
+    for (const key in character_dict)
     {
-        if(character_dict[list].c_alive) {
-            aliveCharacters += `${character_dict[list]}\n`;
-            console.log(`${character_dict[aliveChar]} is alive`);
+        if(character_dict[key].c_alive) {
+            aliveCharacters += `${key}\n`;
+            console.log(`${character_dict[key]} is alive`);
         }
     }
-    channel.send(aliveCharacters);
+    if (aliveCharacters !== "") { 
+        channel.send(aliveCharacters);
+    }
 }
 
 function valhalla(channel) {
@@ -196,4 +197,4 @@ function valhalla(channel) {
 }
 
 
-module.exports = {Character: Character, characterInfo: characterInfo, newChar: newChar}
+module.exports = {Character, characterInfo, newChar, cowards, valhalla}
