@@ -1,36 +1,49 @@
 
 const Discord = require('discord.js');
-var fs = require('fs');
-
-// Create an instance of a Discord client
+const chars = require('./chars');
+const fs = require('fs');
 const client = new Discord.Client();
+
+const charInfo_commands = ['!setheight', '!setlikes', '!setdislikes', '!setdescription', '!height', '!likes', '!dislikes', '!bio', '!newchar', '!likes', '!deletechar', '!description', '!rip', '!unrip'];
 
 //Lore testing
 var loreArray = {};
-var charStats = {};
+var despacitos = 1;
+
+
+
 
 fs.readFile('loreFile.txt', function(err, data) {
-  if (data != null);
+  if (data !== null)
   loreArray = JSON.parse(data);
 })
 
-/**
- * The ready event is vital, it means that only _after_ this will your bot start reacting to information
- * received from Discord
- */
+
+
+function startsWithAnyOf(str, beginnings) { 
+  // returns true if str starts with any string in array beginnings
+  for (var b of beginnings) {
+    if (str.startsWith(b)) return true;
+  }
+  return false;
+}
+
+
 client.on('ready', () => {
   console.log('I am ready!');
 });
-
 
 
 // Create an event listener for messages
 client.on('message', msg => {
 
 
+  //-------------------------------------------------------------------------------------- Commands (Lore) ---------------------------------------------------------------------------------------
+
+
   // Displays current commands
   if(msg.content.startsWith("!help") || msg.content.startsWith("!commands"))
-    msg.channel.send('Current commands are:\n !lore\n !addlore (Adds on to the end of lore file)\n !overwritelore (Overwrites the lore file)\n !listlore\n !deletelore\n !urpriest');
+    msg.channel.send('```Current commands are:\n !lore !addlore !overwritelore !listlore !deletelore\n !newchar !setheight !setlikes !setdislikes !setdescription !deletechar\n !height !likes !dislikes !description !bio !rip !unrip\n !urpriest !keenmind !ohbaby !beepboop !meow !thisissosad\n And a few more secret ones!```');
 
 
   // Adds on to or creates notes for lore
@@ -69,6 +82,7 @@ client.on('message', msg => {
   // Creates or completely overwrites lore in lore
   if (msg.content.startsWith("!overwritelore"))
   {
+    
     var words = msg.content.split(" ");
     var loreOnly = msg.content.substring(words[0].length + words[1].length + 2);
 
@@ -78,7 +92,9 @@ client.on('message', msg => {
       msg.channel.send('Lore rewritten');
       fs.writeFile('loreFile.txt', JSON.stringify(loreArray), (err) => {
         if (err) throw err;
-      }); 
+
+      });
+
     }
 
     else
@@ -137,23 +153,45 @@ client.on('message', msg => {
   if (msg.content.startsWith('!listlore'))
   {
     const lists = Object.keys(loreArray);
+
+    var allLore = "";
     for (const list of lists)
-    {
-      msg.channel.send(list);
+    { 
+      allLore += `${list}\n`;
     }
+    msg.channel.send(allLore);
+  }
+
+
+  
+  // --------------------------------------------------------------------------------------------------- Character Info -----------------------------------------------------------------------------------
+  if(startsWithAnyOf(msg.content, charInfo_commands)) {
+    var words = msg.content.split(" ");
+    var cmd = words[0];
+    var char = words[1];
+    var para = msg.content.substring(words[0].length + words[1].length + 2);
+
+    if (cmd === '!newchar')
+      chars.newChar(char, msg.channel);
+    if(cmd === '!cowards')
+      chars.cowards(msg.channel);
+    if(cmd === '!valhalla')
+      chars.valhalla(msg.channel);
+    else
+      chars.characterInfo(cmd, char, para, msg.channel);
+  }
+
+  if(msg.content === '!cowards') {
+    chars.cowards(msg.channel);
+  }
+
+  if(msg.content === '!valhalla') {
+    chars.valhalla(msg.channel);
   }
 
 
 
-
-  // If the message is "ping"
-  if (msg.content === '!ping') {
-    // Send "pong" to the same channel
-    msg.channel.send('pong');
-  }
-
-
-  // --------------------------------- You have entered the 「ｍｅｍｅ　ｚｏｎｅ」 ----------------------------------
+  // ---------------------------------------------------------------------------------------- You have entered the 「ｍｅｍｅ　ｚｏｎｅ」 ----------------------------------------------------------------------
 
   // Keen mind is a good feat
   if(msg.content === '!keenmind')
@@ -184,6 +222,16 @@ client.on('message', msg => {
           member.setVoiceChannel(null);
       }    
     }
+
+    else {
+      const infidel = msg.author;
+      if(infidel) {
+        const member = msg.guild.member(infidel);
+        if(member) 
+          member.setVoiceChannel(null);
+      }
+      msg.channel.send('You are not worthy');
+    }
   }
   
   // Correct people about the correct name for a pencil 
@@ -201,6 +249,73 @@ client.on('message', msg => {
       msg.channel.send(`For more info on the Ur-Priests: https://tinyurl.com/y3xq3lr9`);
   }
   
+  // Bingrid links
+  if(msg.content === '!ohbaby')
+  {
+    msg.channel.send({embed: {
+      color: 3447003,
+      title: "Bingrid Thunderbone Music",
+      fields: [{
+        name: "The Mighty Thunderbones",
+        value: "[soundcloud](https://soundcloud.com/callum-seuss/the-mighty-thunderbones)"
+      },
+      {
+        name: "Digginoth the Vile",
+        value: "[soundcloud](https://soundcloud.com/callum-seuss/drigginoth-the-vile)"
+      }
+    ]}});
+  }
+
+  // Zach bullshit
+  if(msg.content === '!beepboop')
+  {
+    msg.channel.send({embed: {
+      color: 3447003,
+      fields: [{
+        name:"Guts' Poems",
+        value: "[google doc](https://docs.google.com/document/d/1Ns1X1af_sjNZ1PCKVq4QsRnSnK8YImz7zaSB681DKig/edit)"
+      }]
+    }});
+  }
+
+  // Suicidal cat scribbles
+  if(msg.content === '!meow')
+  {
+    msg.channel.send({embed: {
+      color: 3447003,
+      fields: [{
+        name:"Chonky cat",
+        value: "[google doc](https://docs.google.com/document/d/1AK3ANpOfyZfOWzF_HiGtnSbNj65Ld6-TxDNfyxrJrI8/edit?usp=sharing)"
+      }]
+    }});
+  }
+
+  // Song roulette
+  if(msg.content === '!thisissosad')
+  {
+    var memeSong = Math.floor((Math.random()*10)+1);
+
+    if( (despacitos === 2) || ((despacitos > 3) && (memeSong === 8))) {
+      msg.channel.send(';;play https://www.youtube.com/watch?v=OBwS66EBUcY');
+    }
+
+    if((despacitos === 3) || ((despacitos > 3) && (memeSong === 3))) {
+      msg.channel.send(';;play https://www.youtube.com/watch?v=XUhVCoTsBaM');
+      
+    }
+    
+    else {
+      msg.channel.send(';;play https://www.youtube.com/watch?v=kJQP7kiw5Fk');
+    }
+
+    despacitos++;
+  }
+
+  // They're all good bots bront
+  if(msg.content.includes("good bot"))
+  {
+    msg.channel.send("\\\\(^ヮ^)/");
+  }
 
 });
 
