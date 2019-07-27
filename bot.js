@@ -171,8 +171,20 @@ client.on('message', msg => {
 
     if (cmd === '!newchar')
       chars.newChar(char, msg.channel);
+    if(cmd === '!cowards')
+      chars.cowards(msg.channel);
+    if(cmd === '!valhalla')
+      chars.valhalla(msg.channel);
     else
       chars.characterInfo(cmd, char, para, msg.channel);
+  }
+
+  if(msg.content === '!cowards') {
+    chars.cowards(msg.channel);
+  }
+
+  if(msg.content === '!valhalla') {
+    chars.valhalla(msg.channel);
   }
 
 
@@ -218,7 +230,6 @@ client.on('message', msg => {
       }
       msg.channel.send('You are not worthy');
     }
-    
   }
   
   // Correct people about the correct name for a pencil 

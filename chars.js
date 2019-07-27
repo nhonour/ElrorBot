@@ -10,7 +10,7 @@ fs.readFile('charinfo.txt', function(err, data) {
     if (data !== null) {
         character_dict = JSON.parse(data);
         for (var x in character_dict) {
-            c = new Character("","","","",true);
+            c = new Character("","","","","");
             Object.assign(c, character_dict[x]);
             character_dict[x] = c;
         }
@@ -94,21 +94,24 @@ class Character {
     }
 
     ripChar(char, channel) {
-        if(this.c_alive) 
+        if(this.c_alive) {
+            this.c_alive = false;    
             ripCharacter(char, channel)
+        }
         else
             channel.send(`Now you're just rubbing it in`);
         writeChar(char);
     }
 
     unRipChar(char, channel) {
-        if(!this.alive)
+        if(this.c_alive === false) {
             unRipCharacter(char, channel);
+            this.c_alive = true;
+        }
         else
             channel.send(`Dude, they're standing right there`);
         writeChar(char);
     }   
-    
 }
 
 function characterInfo(cmd, char, para, channel) {
@@ -144,7 +147,7 @@ function characterInfo(cmd, char, para, channel) {
 }
 
 function newChar(char, channel) {
-    character_dict[char] = new Character(" ", " ", " ", " ", " ");
+    character_dict[char] = new Character("", "", "", "", true);
     channel.send('New character created');
     writeChar(char);
 }
@@ -162,7 +165,7 @@ function ripCharacter(char, channel) {
         channel.send(`Rip ${char}, you loveable but compete and utter dumbass`);
     if(rand === 2)
         channel.send(`Rip ${char}, they wasn't the strongest, fastest, or smartest, but my god you should have seen the size of his int`);
-    this.c_alive = false;
+    
 }
 
 function unRipCharacter(char, channel) {
@@ -174,8 +177,23 @@ function unRipCharacter(char, channel) {
     this.c_alive = true;
 }
 
+function cowards (channel) {
+    const lists = Object.keys(character_dict);
+    const aliveCharacters = [];
+    console.log(`command recieved`);
+    for (const list of lists)
+    {
+        if(character_dict[list].c_alive) {
+            aliveCharacters += `${character_dict[list]}\n`;
+            console.log(`${character_dict[aliveChar]} is alive`);
+        }
+    }
+    channel.send(aliveCharacters);
+}
 
+function valhalla(channel) {
 
+}
 
 
 module.exports = {Character: Character, characterInfo: characterInfo, newChar: newChar}
