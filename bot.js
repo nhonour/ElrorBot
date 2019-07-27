@@ -1,5 +1,4 @@
 
-// Import the discord.js module
 const Discord = require('discord.js');
 const chars = require('./chars');
 const fs = require('fs');
@@ -10,6 +9,7 @@ const charInfo_commands = ['!setheight', '!setlikes', '!setdislikes', '!setdescr
 //Lore testing
 var loreArray = {};
 var despacitos = 1;
+
 
 
 
@@ -92,7 +92,9 @@ client.on('message', msg => {
       msg.channel.send('Lore rewritten');
       fs.writeFile('loreFile.txt', JSON.stringify(loreArray), (err) => {
         if (err) throw err;
+
       });
+
     }
 
     else
