@@ -317,6 +317,9 @@ client.on('message', msg => {
     msg.channel.send("\\\\(^ヮ^)/");
   }
 
+  if(msg.content === '!dave') {
+    msg.channel.send('Dave and dave and the bois and bois and squad and the fam and the crew and homies and the gang and the goons and the team');
+  }
 });
 
 // Log our bot in using the token from https://discordapp.com/developers/applications/me
