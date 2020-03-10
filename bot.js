@@ -211,7 +211,7 @@ client.on('message', msg => {
   if(msg.content.startsWith('!yeet'))
   {
     
-    if(msg.author.id === ('140280291582279681'))
+    if(msg.author.id === (('140280291582279681')||('192481758225235969')))
     {
       
       const yeetee = msg.mentions.users.first();
@@ -320,6 +320,8 @@ client.on('message', msg => {
   if(msg.content === '!dave') {
     msg.channel.send('Dave and dave and the bois and bois and squad and the fam and the crew and homies and the gang and the goons and the team');
   }
+
+  
 });
 
 // Log our bot in using the token from https://discordapp.com/developers/applications/me

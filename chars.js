@@ -162,7 +162,7 @@ function writeChar()
 function ripCharacter(char, channel) {
     var rand = Math.floor((Math.random()*2)+1);
     if(rand === 1)
-        channel.send(`Rip ${char}, you loveable but compete and utter dumbass`);
+        channel.send(`Rip ${char}, you loveable but complete and utter dumbass`);
     if(rand === 2)
         channel.send(`Rip ${char}, they wasn't the strongest, fastest, or smartest, but my god you should have seen the size of his int`);
     
