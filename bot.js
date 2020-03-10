@@ -207,7 +207,7 @@ client.on('message', msg => {
         msg.channel.send(`What's happened in the last month???`);
   }
 
-  // Allow only myself to yeet people out of voice chat
+  // Allow only myself and Karl to yeet people out of voice chat
   if(msg.content.startsWith('!yeet'))
   {
     
