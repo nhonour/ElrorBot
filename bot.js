@@ -2,24 +2,14 @@
 const Discord = require('discord.js');
 const chars = require('./chars');
 const fs = require('fs');
+var auth = require('./auth.json');
+console.log(auth.token);
 const client = new Discord.Client();
 const charInfo_commands = ['!setheight', '!setlikes', '!setdislikes', '!setdescription', '!height', '!likes', '!dislikes', '!bio', '!newchar', '!likes', '!deletechar', '!description', '!rip', '!unrip'];
 
 //Lore testing
 var loreArray = {};
 var despacitos = 1;
-
-
-var password = "";
-
-fs.readFile('token.txt', 'utf8', function(err, data) {
-  if (data !== null)
-  password = data;
-  console.log(password);
-})
-
-
-
 
 fs.readFile('loreFile.txt', function(err, data) {
   if (data !== null)
@@ -334,4 +324,4 @@ client.on('message', msg => {
 
 // Log our bot in using the token from https://discordapp.com/developers/applications/me
 
-client.login('put token here');
+client.login(auth.token);
