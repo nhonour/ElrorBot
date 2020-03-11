@@ -3,12 +3,20 @@ const Discord = require('discord.js');
 const chars = require('./chars');
 const fs = require('fs');
 const client = new Discord.Client();
-
 const charInfo_commands = ['!setheight', '!setlikes', '!setdislikes', '!setdescription', '!height', '!likes', '!dislikes', '!bio', '!newchar', '!likes', '!deletechar', '!description', '!rip', '!unrip'];
 
 //Lore testing
 var loreArray = {};
 var despacitos = 1;
+
+
+var password = "";
+
+fs.readFile('token.txt', 'utf8', function(err, data) {
+  if (data !== null)
+  password = data;
+  console.log(password);
+})
 
 
 
@@ -325,4 +333,5 @@ client.on('message', msg => {
 });
 
 // Log our bot in using the token from https://discordapp.com/developers/applications/me
-client.login('NjAwODg4NzYyNjAzNDA1MzQ5.XTIaSA.Wgd5_LL4qH0BQuh_aSti5V4Yfi8');
+
+client.login('put token here');
