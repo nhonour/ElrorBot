@@ -208,7 +208,7 @@ client.on('message', msg => {
   if(msg.content.startsWith('!yeet'))
   {
     
-    if(msg.author.id === (('140280291582279681')||('192481758225235969')))
+    if(msg.author.id === ((auth.nick-id)||(auth.karl-id)))
     {
       
       const yeetee = msg.mentions.users.first();
