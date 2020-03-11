@@ -3,7 +3,6 @@ const Discord = require('discord.js');
 const chars = require('./chars');
 const fs = require('fs');
 var auth = require('./auth.json');
-console.log(auth.token);
 const client = new Discord.Client();
 const charInfo_commands = ['!setheight', '!setlikes', '!setdislikes', '!setdescription', '!height', '!likes', '!dislikes', '!bio', '!newchar', '!likes', '!deletechar', '!description', '!rip', '!unrip'];
 
