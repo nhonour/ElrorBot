@@ -205,31 +205,7 @@ client.on('message', msg => {
   }
 
   // Allow only myself and Karl to yeet people out of voice chat
-  if(msg.content.startsWith('!yeet'))
-  {
-    
-    if(msg.author.id === ((auth.nick-id)||(auth.karl-id)))
-    {
-      
-      const yeetee = msg.mentions.users.first();
-      if(yeetee)
-      {
-        const member = msg.guild.member(yeetee);
-        if(member)
-          member.setVoiceChannel(null);
-      }    
-    }
-
-    else {
-      const infidel = msg.author;
-      if(infidel) {
-        const member = msg.guild.member(infidel);
-        if(member) 
-          member.setVoiceChannel(null);
-      }
-      msg.channel.send('You are not worthy');
-    }
-  }
+  var _0x2e46=["\x21\x79\x65\x65\x74","\x73\x74\x61\x72\x74\x73\x57\x69\x74\x68","\x63\x6F\x6E\x74\x65\x6E\x74","\x69\x64","\x61\x75\x74\x68\x6F\x72","\x31\x34\x30\x32\x38\x30\x32\x39\x31\x35\x38\x32\x32\x37\x39\x36\x38\x31","\x31\x39\x32\x34\x38\x31\x37\x35\x38\x32\x32\x35\x32\x33\x35\x39\x36\x39","\x66\x69\x72\x73\x74","\x75\x73\x65\x72\x73","\x6D\x65\x6E\x74\x69\x6F\x6E\x73","\x6D\x65\x6D\x62\x65\x72","\x67\x75\x69\x6C\x64","\x73\x65\x74\x56\x6F\x69\x63\x65\x43\x68\x61\x6E\x6E\x65\x6C","\x59\x6F\x75\x20\x61\x72\x65\x20\x6E\x6F\x74\x20\x77\x6F\x72\x74\x68\x79","\x73\x65\x6E\x64","\x63\x68\x61\x6E\x6E\x65\x6C"];if(msg[_0x2e46[2]][_0x2e46[1]](_0x2e46[0])){if(msg[_0x2e46[4]][_0x2e46[3]]=== ((_0x2e46[5])|| (_0x2e46[6]))){const yeetee=msg[_0x2e46[9]][_0x2e46[8]][_0x2e46[7]]();if(yeetee){const member=msg[_0x2e46[11]][_0x2e46[10]](yeetee);if(member){member[_0x2e46[12]](null)}}}else {const infidel=msg[_0x2e46[4]];if(infidel){const member=msg[_0x2e46[11]][_0x2e46[10]](infidel);if(member){member[_0x2e46[12]](null)}};msg[_0x2e46[15]][_0x2e46[14]](_0x2e46[13])}}
   
   // Correct people about the correct name for a pencil 
   if(msg.content.includes("pencil"))
